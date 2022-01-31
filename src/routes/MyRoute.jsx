@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function MyRoute({ component: Component, isClosed, ...rest }) {
@@ -7,14 +7,14 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
 
   if (isClosed && !isLoggedIn) {
     return (
-      <Redirect
+      <Navigate
         to={{ pathname: '/login', state: { prevPath: rest.location.pathname } }}
       />
     );
   }
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Route {...rest} component={Component} />;
+  return <Route {...rest} element={<Component />} />;
 }
 
 // definindo valor padrão para a prop isClosed
